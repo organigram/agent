@@ -1,0 +1,43 @@
+{
+  "name": "@organigram/agent",
+  "version": "0.1.4",
+  "description": "Workspace agent primitives for Organigram.",
+  "author": "Organigram (https://organigram.ai)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:organigram/organigram.git",
+    "directory": "packages/agent"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "dependencies": {
+    "@organigram/js": "workspace:^",
+    "adm-zip": "^0.5.16",
+    "node-pdftocairo": "^1.2.0",
+    "pdfjs-dist": "^5.5.207",
+    "tesseract.js": "^5.1.1"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.7",
+    "@types/adm-zip": "^0.5.8",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.19.37",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.3",
+    "typescript": "^5.5.4"
+  },
+  "optionalDependencies": {
+    "@napi-rs/canvas": "0.1.97"
+  },
+  "scripts": {
+    "build": "tsc --pretty",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "typecheck": "tsc --noEmit --incremental false",
+    "lint": "eslint ."
+  }
+}
