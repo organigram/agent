@@ -36,7 +36,7 @@
   },
   "scripts": {
     "build": "tsc --pretty",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit --incremental false",
     "lint": "eslint ."
   }
