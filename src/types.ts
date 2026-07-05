@@ -1,13 +1,13 @@
 import type { OrganigramInput, OrganigramJson } from '@organigram/js'
 
-export type WorkspaceAgentMessage = {
+export type Message = {
   role: 'user' | 'assistant'
   content: string
 }
 
-export type WorkspaceAgentThreadSource = 'workspace' | 'hero'
+export type ThreadSource = 'workspace' | 'hero'
 
-export type WorkspaceAgentCitation = {
+export type Citation = {
   type:
     | 'workspace'
     | 'organigram'
@@ -20,23 +20,23 @@ export type WorkspaceAgentCitation = {
   label: string
 }
 
-export type WorkspaceAgentRequest = {
+export type AgentRequest = {
   threadId?: string | null
   message?: string
-  messages?: WorkspaceAgentMessage[]
+  messages?: Message[]
   currentOrganigramId?: string | null
-  source?: WorkspaceAgentThreadSource
+  source?: ThreadSource
 }
 
-export type WorkspaceAgentRecordThreadRequest = {
+export type RecordThreadRequest = {
   action: 'recordThread'
-  source: WorkspaceAgentThreadSource
+  source: ThreadSource
   userMessage: string
   assistantMessage: string
   currentOrganigramId?: string | null
 }
 
-export type WorkspaceAgentMergeOrganigramPreview = {
+export type MergeOrganigramPreview = {
   type: 'organigram'
   organigramId: string
   persistence: 'merge-additive'
@@ -44,45 +44,43 @@ export type WorkspaceAgentMergeOrganigramPreview = {
   organigram: OrganigramJson
 }
 
-export type WorkspaceAgentNewOrganigramPreview = {
+export type NewOrganigramPreview = {
   type: 'new-organigram'
   persistence: 'create'
   summary: string[]
   organigram: OrganigramJson
 }
 
-export type WorkspaceAgentOrganigramPreview =
-  | WorkspaceAgentMergeOrganigramPreview
-  | WorkspaceAgentNewOrganigramPreview
+export type OrganigramPreview = MergeOrganigramPreview | NewOrganigramPreview
 
-export type WorkspaceAgentResponse = {
+export type AgentResponse = {
   threadId?: string
   message: string
-  citations: WorkspaceAgentCitation[]
-  preview?: WorkspaceAgentOrganigramPreview
+  citations: Citation[]
+  preview?: OrganigramPreview
 }
 
-export type WorkspaceAgentStoredMessage = WorkspaceAgentMessage & {
+export type StoredMessage = Message & {
   id: string
   createdAt: string
-  response?: WorkspaceAgentResponse
+  response?: AgentResponse
 }
 
-export type WorkspaceAgentThread = {
+export type Thread = {
   id: string
   title: string
-  source: WorkspaceAgentThreadSource
+  source: ThreadSource
   currentOrganigramId?: string | null
   createdAt: string
   updatedAt: string
-  messages: WorkspaceAgentStoredMessage[]
+  messages: StoredMessage[]
 }
 
-export type WorkspaceAgentThreadsResponse = {
-  threads: WorkspaceAgentThread[]
+export type ThreadsResponse = {
+  threads: Thread[]
 }
 
-export type WorkspaceAgentWorkspace = {
+export type Workspace = {
   id: string
   slug: string
   name?: string | null
@@ -94,12 +92,12 @@ export type WorkspaceAgentWorkspace = {
   organigrams: OrganigramInput[]
 }
 
-export type WorkspaceAgentFile = {
+export type File = {
   cid: string
   name?: string | null
 }
 
-export type WorkspaceAgentNotification = {
+export type Notification = {
   id: string
   type: string
   title?: string | null
@@ -108,10 +106,10 @@ export type WorkspaceAgentNotification = {
   createdAt: Date | string
 }
 
-export type WorkspaceAgentContext = {
-  workspace: WorkspaceAgentWorkspace
-  files: WorkspaceAgentFile[]
-  notifications: WorkspaceAgentNotification[]
+export type Context = {
+  workspace: Workspace
+  files: File[]
+  notifications: Notification[]
   currentOrganigram: OrganigramJson | null
 }
 
@@ -125,10 +123,8 @@ export type AiModelUsage = {
   estimatedTokens: boolean
 }
 
-export const isWorkspaceAgentMessage = (
-  value: unknown
-): value is WorkspaceAgentMessage => {
-  const item = value as WorkspaceAgentMessage
+export const isMessage = (value: unknown): value is Message => {
+  const item = value as Message
   return (
     (item?.role === 'user' || item?.role === 'assistant') &&
     typeof item.content === 'string' &&

@@ -1,10 +1,10 @@
 import { Organigram, type OrganigramJson } from '@organigram/js'
 
 import type {
-  WorkspaceAgentCitation,
-  WorkspaceAgentContext,
-  WorkspaceAgentOrganigramPreview,
-  WorkspaceAgentResponse
+  Citation,
+  Context,
+  OrganigramPreview,
+  AgentResponse
 } from './types'
 
 const citationTypes = new Set([
@@ -20,12 +20,12 @@ const citationTypes = new Set([
 const safeString = (value: unknown, fallback = ''): string =>
   typeof value === 'string' && value.trim() !== '' ? value.trim() : fallback
 
-const normalizeCitations = (input: unknown): WorkspaceAgentCitation[] =>
+const normalizeCitations = (input: unknown): Citation[] =>
   (Array.isArray(input) ? input : [])
     .map(item => item as Record<string, unknown>)
     .filter(item => citationTypes.has(safeString(item.type)))
     .map(item => ({
-      type: safeString(item.type) as WorkspaceAgentCitation['type'],
+      type: safeString(item.type) as Citation['type'],
       id: safeString(item.id, 'unknown'),
       label: safeString(item.label, 'Reference')
     }))
@@ -109,8 +109,8 @@ const assertNoExistingOrganChanged = (
 
 const normalizePreview = (
   input: unknown,
-  context: WorkspaceAgentContext
-): WorkspaceAgentOrganigramPreview | undefined => {
+  context: Context
+): OrganigramPreview | undefined => {
   const preview = input as Record<string, unknown> | undefined
   if (preview == null) return undefined
 
@@ -173,16 +173,16 @@ const normalizePreview = (
   }
 }
 
-export const normalizeWorkspaceAgentResponse = (
+export const normalizeResponse = (
   input: unknown,
-  context: WorkspaceAgentContext
-): WorkspaceAgentResponse => {
+  context: Context
+): AgentResponse => {
   const raw = (input ?? {}) as Record<string, unknown>
   const message = safeString(
     raw.message,
     'I could not produce a reliable answer for this workspace yet.'
   )
-  let preview: WorkspaceAgentOrganigramPreview | undefined
+  let preview: OrganigramPreview | undefined
 
   try {
     preview = normalizePreview(raw.preview, context)

@@ -13,7 +13,7 @@ const readCachedTokensFromDetails = (value: unknown): number | undefined =>
     ? readFiniteTokenCount((value as { cached_tokens?: unknown }).cached_tokens)
     : undefined
 
-export const extractWorkspaceAgentModelUsage = ({
+export const extractModelUsage = ({
   payload,
   prompt,
   completion,

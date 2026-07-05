@@ -1,6 +1,6 @@
-import type { WorkspaceAgentContext } from './types'
+import type { Context } from './types'
 
-type WorkspaceAgentSnapshotEntry = {
+type SnapshotEntry = {
   id?: string | null
   index: string
   address: string
@@ -11,9 +11,7 @@ type WorkspaceAgentSnapshotEntry = {
 const toIsoString = (value: Date | string): string =>
   typeof value === 'string' ? value : value.toISOString()
 
-export const buildWorkspaceAgentSnapshot = (
-  context: WorkspaceAgentContext
-): Record<string, unknown> => ({
+export const buildSnapshot = (context: Context): Record<string, unknown> => ({
   workspace: {
     id: context.workspace.id,
     slug: context.workspace.slug,
@@ -46,7 +44,7 @@ export const buildWorkspaceAgentSnapshot = (
       isDeployed: organ.isDeployed,
       permissions: organ.permissions,
       entries: (organ.entries ?? []).map(entry => {
-        const normalizedEntry = entry as WorkspaceAgentSnapshotEntry
+        const normalizedEntry = entry as SnapshotEntry
         return {
           id: normalizedEntry.id,
           index: entry.index,

@@ -1,5 +1,5 @@
-import { buildWorkspaceAgentSnapshot } from './snapshot'
-import type { WorkspaceAgentContext, WorkspaceAgentMessage } from './types'
+import { buildSnapshot } from './snapshot'
+import type { Context, Message } from './types'
 
 export const WORKSPACE_AGENT_OUTPUT_SCHEMA = {
   type: 'object',
@@ -109,12 +109,12 @@ New organigram target shape inside preview.organigram:
   ]
 }`
 
-export const buildWorkspaceAgentPrompt = ({
+export const buildPrompt = ({
   messages,
   context
 }: {
-  messages: WorkspaceAgentMessage[]
-  context: WorkspaceAgentContext
+  messages: Message[]
+  context: Context
 }): string => `You are the Organigram workspace agent.
 
 You help users understand and prepare changes to an organization workspace.
@@ -137,7 +137,7 @@ Rules:
 ${NEW_ORGANIGRAM_GENERATION_INSTRUCTIONS}
 
 Workspace snapshot:
-${stringifyForPrompt(buildWorkspaceAgentSnapshot(context))}
+${stringifyForPrompt(buildSnapshot(context))}
 
 Conversation:
 ${stringifyForPrompt(messages)}
