@@ -1,4 +1,4 @@
-import { buildWorkspaceAgentSnapshot } from './snapshot';
+import { buildSnapshot } from './snapshot';
 export const WORKSPACE_AGENT_OUTPUT_SCHEMA = {
     type: 'object',
     properties: {
@@ -103,7 +103,7 @@ New organigram target shape inside preview.organigram:
     }
   ]
 }`;
-export const buildWorkspaceAgentPrompt = ({ messages, context }) => `You are the Organigram workspace agent.
+export const buildPrompt = ({ messages, context }) => `You are the Organigram workspace agent.
 
 You help users understand and prepare changes to an organization workspace.
 Use only the workspace snapshot below. Do not claim to have read private file contents.
@@ -125,7 +125,7 @@ Rules:
 ${NEW_ORGANIGRAM_GENERATION_INSTRUCTIONS}
 
 Workspace snapshot:
-${stringifyForPrompt(buildWorkspaceAgentSnapshot(context))}
+${stringifyForPrompt(buildSnapshot(context))}
 
 Conversation:
 ${stringifyForPrompt(messages)}

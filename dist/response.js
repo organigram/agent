@@ -105,7 +105,7 @@ const normalizePreview = (input, context) => {
         organigram: normalizedPreview
     };
 };
-export const normalizeWorkspaceAgentResponse = (input, context) => {
+export const normalizeResponse = (input, context) => {
     const raw = (input ?? {});
     const message = safeString(raw.message, 'I could not produce a reliable answer for this workspace yet.');
     let preview;

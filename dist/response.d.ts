@@ -1,2 +1,2 @@
-import type { WorkspaceAgentContext, WorkspaceAgentResponse } from './types';
-export declare const normalizeWorkspaceAgentResponse: (input: unknown, context: WorkspaceAgentContext) => WorkspaceAgentResponse;
+import type { Context, AgentResponse } from './types';
+export declare const normalizeResponse: (input: unknown, context: Context) => AgentResponse;

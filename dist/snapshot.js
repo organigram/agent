@@ -1,5 +1,5 @@
 const toIsoString = (value) => typeof value === 'string' ? value : value.toISOString();
-export const buildWorkspaceAgentSnapshot = (context) => ({
+export const buildSnapshot = (context) => ({
     workspace: {
         id: context.workspace.id,
         slug: context.workspace.slug,

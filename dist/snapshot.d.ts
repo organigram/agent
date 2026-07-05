@@ -1,2 +1,2 @@
-import type { WorkspaceAgentContext } from './types';
-export declare const buildWorkspaceAgentSnapshot: (context: WorkspaceAgentContext) => Record<string, unknown>;
+import type { Context } from './types';
+export declare const buildSnapshot: (context: Context) => Record<string, unknown>;

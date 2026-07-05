@@ -1,5 +1,5 @@
 import type { AiModelUsage } from './types';
-export declare const extractWorkspaceAgentModelUsage: ({ payload, prompt, completion, provider, model }: {
+export declare const extractModelUsage: ({ payload, prompt, completion, provider, model }: {
     payload: unknown;
     prompt: string;
     completion: string;

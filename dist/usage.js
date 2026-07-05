@@ -5,7 +5,7 @@ const readFiniteTokenCount = (value) => typeof value === 'number' && Number.isFi
 const readCachedTokensFromDetails = (value) => value != null && typeof value === 'object'
     ? readFiniteTokenCount(value.cached_tokens)
     : undefined;
-export const extractWorkspaceAgentModelUsage = ({ payload, prompt, completion, provider, model }) => {
+export const extractModelUsage = ({ payload, prompt, completion, provider, model }) => {
     const raw = (payload ?? {});
     const usage = raw.usage != null && typeof raw.usage === 'object'
         ? raw.usage
