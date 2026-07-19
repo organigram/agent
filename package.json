@@ -35,6 +35,7 @@
     "@napi-rs/canvas": "0.1.97"
   },
   "scripts": {
+    "docs:generate": "env-cmd --silent tsx ../docs/scripts/generatePackageTypeScriptReference.ts . agent",
     "build": "tsc --pretty",
     "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit --incremental false",
