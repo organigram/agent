@@ -6,8 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:organigram/organigram.git",
-    "directory": "packages/agent"
+    "url": "ssh://git@github.com:organigram/agent.git"
   },
   "publishConfig": {
     "access": "public"
