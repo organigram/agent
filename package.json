@@ -17,7 +17,7 @@
   "type": "module",
   "dependencies": {
     "@organigram/js": "workspace:^",
-    "adm-zip": "^0.5.16",
+    "adm-zip": "^0.6.0",
     "node-pdftocairo": "^1.2.0",
     "pdfjs-dist": "^5.5.207",
     "tesseract.js": "^5.1.1"
