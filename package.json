@@ -1,6 +1,6 @@
 {
   "name": "@organigram/agent",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Workspace agent primitives for Organigram.",
   "author": "Organigram (https://organigram.ai)",
   "license": "MIT",
