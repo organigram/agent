@@ -57,7 +57,7 @@ export const NEW_ORGANIGRAM_GENERATION_INSTRUCTIONS = `New organigram generation
 - Answer in the language of the user's input when writing human-readable names, descriptions, summaries, and messages.
 - If a piece of information is uncertain, make a reasonable assumption.
 - typeName must be one of: "vote" or "nomination".
-- data must be a JSON string. For typeName="vote", use by default: {"quorumSize":"20001","voteDuration":"3600","majoritySize":"50001"}.
+- data must be a JSON string. For typeName="vote", use by default: {"quorumSize":"20001","voteDuration":"300","majoritySize":"50001"}.
 - Use stable textual salts, for example "board-of-directors-salt" or "executive-team-salt".
 - Do not invent blockchain addresses.
 - For procedures, deciders/proposers/moderators must reference organ salts.
