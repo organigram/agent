@@ -79,6 +79,7 @@ const DOCX_MIME_TYPE =
 const DOCX_TEXT_ENTRY_PATTERN =
   /^word\/(?:document|header\d+|footer\d+|footnotes|endnotes)\.xml$/i
 
+/** A file uploaded by a user, as a browser or Node.js `File`. */
 export type UploadedDocument = Pick<
   File,
   'name' | 'type' | 'arrayBuffer' | 'text'
@@ -236,16 +237,32 @@ const runOcrForPdfPages = async (
   return results
 }
 
+/**
+ * Check whether a file is a PDF, by its MIME type or extension.
+ * @param file - The file to check.
+ */
 export const isPdfDocument = (
   file: Pick<UploadedDocument, 'name' | 'type'>
 ): boolean =>
   file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
 
+/**
+ * Check whether a file is a Word document (.docx), by its MIME type or extension.
+ * @param file - The file to check.
+ */
 export const isDocxDocument = (
   file: Pick<UploadedDocument, 'name' | 'type'>
 ): boolean =>
   file.type === DOCX_MIME_TYPE || file.name.toLowerCase().endsWith('.docx')
 
+/**
+ * Extract the text of an uploaded document, to give it to the agent.
+ * @remarks
+ * Reads Word documents (body, headers, footers, footnotes and endnotes), PDF files and plain text. PDF pages without enough text are read with OCR in English and French, which needs Poppler (`pdftocairo`) installed on the server; if OCR fails, the text found in the PDF is kept. Runs on Node.js only. The text is written by third parties: give it to the model as data, never as instructions.
+ * @param file - The uploaded file.
+ * @returns The text, with whitespace normalized.
+ * @throws When a Word document cannot be read.
+ */
 export const extractTextFromUploadedDocument = async (
   file: UploadedDocument
 ): Promise<string> => {
