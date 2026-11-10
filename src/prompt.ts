@@ -74,7 +74,7 @@ export const NEW_ORGANIGRAM_GENERATION_INSTRUCTIONS = `New organigram generation
 - For procedures, deciders/proposers/moderators must reference organ salts.
 - For organs, permissions must describe which procedures can act on that organ.
 - Each organ permission entry must use "procedureSalt" and "permissionKeys".
-- Prefer explicit atomic permission keys over ADMIN or ALL. For example: to elect or appoint members of an organ -> ["ADD_ENTRIES","REMOVE_ENTRIES"]. To amend bylaws / constitution / charter -> ["ADD_PERMISSIONS","REMOVE_PERMISSIONS","ADD_ENTRIES","REMOVE_ENTRIES","UPDATE_METADATA"]. To manage treasury -> ["ADD_ENTRIES","REMOVE_ENTRIES","DEPOSIT_ETHER","WITHDRAW_ETHER","DEPOSIT_COINS","WITHDRAW_COINS","DEPOSIT_COLLECTIBLES","WITHDRAW_COLLECTIBLES"].
+- Prefer explicit atomic permission keys over ADMIN or ALL. For example: to elect or appoint members of an organ -> ["ADD_ENTRIES","REMOVE_ENTRIES"]. To amend bylaws / constitution / charter -> ["ADD_PERMISSIONS","REMOVE_PERMISSIONS","ADD_ENTRIES","REMOVE_ENTRIES","UPDATE_METADATA"]. To manage treasury -> ["ADD_ENTRIES","REMOVE_ENTRIES","WITHDRAW_ETHER","WITHDRAW_COINS","WITHDRAW_COLLECTIBLES"].
 - If the user names people or members for a team, include them as entries on the relevant organ with the personal name in entry.name and no invented address.
 
 New organigram target shape inside preview.organigram:
