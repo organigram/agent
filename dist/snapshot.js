@@ -1,5 +1,16 @@
+// Keeps the prompt and the on-chain lookup bounded for procedures with a long
+// proposal history.
+/** Number of the latest proposals of each procedure included in a snapshot. */
+export const MAX_PROPOSALS_PER_PROCEDURE = 10;
 const toIsoString = (value) => typeof value === 'string' ? value : value.toISOString();
+/**
+ * Build the description of a workspace given to the agent in its prompt.
+ * @remarks
+ * The snapshot keeps only the fields the agent needs: the workspace, its organigrams with their organs, entries, procedures, latest proposals and elections, and assets, plus the names and references of files and the notifications. It never contains the contents of files. It includes `generatedAt`, the date it was built.
+ * @param context - What is known about the workspace.
+ */
 export const buildSnapshot = (context) => ({
+    generatedAt: new Date().toISOString(),
     workspace: {
         id: context.workspace.id,
         slug: context.workspace.slug,
@@ -53,7 +64,37 @@ export const buildSnapshot = (context) => ({
             moderators: procedure.moderators,
             withModeration: procedure.withModeration,
             isDeployed: procedure.isDeployed,
-            data: procedure.data
+            data: procedure.data,
+            proposals: (procedure.proposals ?? [])
+                .slice(-MAX_PROPOSALS_PER_PROCEDURE)
+                .map(proposal => {
+                const election = procedure.elections?.find(item => item.proposalKey === proposal.key);
+                return {
+                    key: proposal.key,
+                    creator: proposal.creator,
+                    presented: proposal.presented,
+                    blocked: proposal.blocked,
+                    blockReason: proposal.blockReason,
+                    adopted: proposal.adopted,
+                    applied: proposal.applied,
+                    operations: proposal.operations.map(operation => ({
+                        function: operation.function?.key ?? operation.functionSelector,
+                        target: operation.target,
+                        processed: operation.processed
+                    })),
+                    election: election == null
+                        ? null
+                        : {
+                            start: new Date(Number(election.start) * 1000).toISOString(),
+                            closed: election.closed,
+                            votesCount: election.votesCount,
+                            approvals: election.approvals,
+                            objections: election.objections,
+                            eligibleVotes: election.eligibleVotes,
+                            approved: election.approved
+                        }
+                };
+            })
         })),
         assets: organigram.assets.map(asset => ({
             address: asset.address,

@@ -1,0 +1,36 @@
+[
+  {
+    "title": "Prompt",
+    "files": ["prompt", "snapshot"],
+    "names": ["Context", "Workspace", "File", "Notification"],
+    "intro": "The agent answers questions about one workspace, and prepares changes to its organigrams. Gather what the user may see of the workspace in a `Context`, and build the prompt with `buildPrompt()`. The prompt includes a snapshot of the workspace, with the names of files but never their contents. Send it to the language model of your choice, with `WORKSPACE_AGENT_OUTPUT_SCHEMA` as the structured output format when the provider supports it."
+  },
+  {
+    "title": "Responses",
+    "files": ["response"],
+    "names": [
+      "AgentResponse",
+      "Citation",
+      "OrganigramPreview",
+      "MergeOrganigramPreview",
+      "NewOrganigramPreview"
+    ],
+    "intro": "The output of a language model is untrusted. `normalizeResponse()` keeps only valid citations, and only previews that create a new organigram or add to an organigram that is not deployed, without changing what it holds. The agent never proposes, signs or sends transactions: a deployed organigram changes only through its own procedures."
+  },
+  {
+    "title": "Conversations",
+    "files": ["types"],
+    "intro": "Types of the requests to the agent and of the conversations stored in the history of a workspace."
+  },
+  {
+    "title": "Documents",
+    "files": ["document"],
+    "intro": "Users can upload bylaws or other documents for the agent to draw an organigram from. These functions extract their text on the server. The text is written by third parties: give it to the model as data."
+  },
+  {
+    "title": "Usage",
+    "files": ["usage"],
+    "names": ["AiModelUsage"],
+    "intro": "Count the tokens used by each call to a language model, to bill or limit usage."
+  }
+]
